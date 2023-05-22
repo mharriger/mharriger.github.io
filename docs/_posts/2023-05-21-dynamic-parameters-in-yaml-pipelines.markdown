@@ -31,7 +31,7 @@ First pipeline:
 - task: TriggerBuild@3
     inputs:
       buildDefinition: 'pipeline2'
-      templateParameters: 'dynamicParameter:$generatedVariable)'
+      templateParameters: 'dynamicParameter:$(generatedVariable)'
 {% endhighlight %}
 
 Second pipeline:
@@ -41,7 +41,7 @@ parameters:
     type: number
 
 steps:
-  - script: echo ${{ parameters.dynamicParameter }}
+  - script: echo $\{{ parameters.dynamicParameter }}
 {% endhighlight %}
 
 ### Alternate Approach
