@@ -23,11 +23,25 @@ It might seem easier to use a [pipeline resource](https://learn.microsoft.com/en
 
 Here is a simple example of the relevant pieces of the two pipelines. I have a [complete example](https://github.com/mharriger/AzDOExamples/tree/main/DynamicParameters) on GitHub as well.
 
+First pipeline:
 {% highlight yaml %}
+# Store the parameter value in a variable
+- script: value=42; echo "##vso[task.setvariable variable=generatedVariable]$value"
+# Trigger the second pipeline, passing the parameter
 - task: TriggerBuild@3
     inputs:
       buildDefinition: 'pipeline2'
-      templateParameters: 'dynamicParameter:$(generatedVariable)'
+      templateParameters: 'dynamicParameter:$generatedVariable)'
+{% endhighlight %}
+
+Second pipeline:
+{% highlight yaml %}
+parameters:
+  - name: dynamicParameter
+    type: number
+
+steps:
+  - script: echo ${{ parameters.dynamicParameter }}
 {% endhighlight %}
 
 ### Alternate Approach
