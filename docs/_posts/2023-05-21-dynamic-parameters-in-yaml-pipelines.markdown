@@ -40,8 +40,8 @@ parameters:
   - name: dynamicParameter
     type: number
 
-steps:
-  - script: echo $\{{ parameters.dynamicParameter }}
+steps:{% raw %}
+  - script: echo ${{ parameters.dynamicParameter }}{% endraw %}
 {% endhighlight %}
 
 ### Alternate Approach
